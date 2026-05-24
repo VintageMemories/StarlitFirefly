@@ -1,0 +1,302 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* ═══════════════════════════════════════════════════════════
+     星荧音乐品牌色 - Starlight Fluorescence Theme
+     
+     星荧 = 星火 + 荧光 = Starfire + Fluorescence
+     主色调：青碧星光（代表星光的冷调荧光）
+     辅助色：柔紫星云（代表远方的星云柔光）
+     暖色点缀：琥珀星光（代表温暖闪烁的星火）
+  ═══════════════════════════════════════════════════════════ */
+  --color-xy-primary: #4FD1C5;
+  --color-xy-primary-light: #81E6D9;
+  --color-xy-primary-dark: #2C9E93;
+  --color-xy-glow: #4FD1C540;
+  --color-xy-glow-strong: #4FD1C570;
+  --color-xy-secondary: #B794F6;
+  --color-xy-secondary-glow: #B794F640;
+  --color-xy-warm: #F6AD55;
+  --color-xy-warm-glow: #F6AD5540;
+  --color-xy-bg: #06080E;
+  --color-xy-card: #0C1018;
+  --color-xy-surface: #0A0E16;
+  --color-xy-hover: #14202C;
+}
+
+:root {
+  --radius: 0.625rem;
+  /* Base: deep space dark */
+  --background: oklch(0.06 0.015 240);
+  --foreground: oklch(0.95 0.01 200);
+  /* Cards: subtle nebula tint */
+  --card: oklch(0.10 0.02 240);
+  --card-foreground: oklch(0.95 0.01 200);
+  --popover: oklch(0.10 0.02 240);
+  --popover-foreground: oklch(0.95 0.01 200);
+  /* Primary: starlight cyan */
+  --primary: oklch(0.78 0.12 180);
+  --primary-foreground: oklch(0.10 0.03 240);
+  --secondary: oklch(0.16 0.025 240);
+  --secondary-foreground: oklch(0.90 0.01 200);
+  --muted: oklch(0.16 0.02 240);
+  --muted-foreground: oklch(0.55 0.03 240);
+  --accent: oklch(0.20 0.03 240);
+  --accent-foreground: oklch(0.95 0.01 200);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.20 0.025 240);
+  --input: oklch(0.18 0.025 240);
+  --ring: oklch(0.78 0.12 180);
+  --chart-1: oklch(0.78 0.12 180);
+  --chart-2: oklch(0.68 0.15 290);
+  --chart-3: oklch(0.72 0.12 330);
+  --chart-4: oklch(0.62 0.10 40);
+  --chart-5: oklch(0.75 0.14 180);
+  --sidebar: oklch(0.07 0.018 240);
+  --sidebar-foreground: oklch(0.90 0.01 200);
+  --sidebar-primary: oklch(0.78 0.12 180);
+  --sidebar-primary-foreground: oklch(0.10 0.03 240);
+  --sidebar-accent: oklch(0.16 0.03 240);
+  --sidebar-accent-foreground: oklch(0.95 0.01 200);
+  --sidebar-border: oklch(0.16 0.02 240);
+  --sidebar-ring: oklch(0.78 0.12 180);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    overflow: hidden;
+    user-select: none;
+  }
+}
+
+/* ─── Custom Scrollbar ─── */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(79, 209, 197, 0.12);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(79, 209, 197, 0.25);
+}
+
+/* ─── Starlight Brand Effects ─── */
+
+.starfire-glow {
+  box-shadow: 0 0 20px rgba(79, 209, 197, 0.20), 0 0 40px rgba(79, 209, 197, 0.06);
+}
+
+.starfire-text-glow {
+  text-shadow: 0 0 10px rgba(79, 209, 197, 0.4), 0 0 20px rgba(79, 209, 197, 0.12);
+}
+
+.starfire-gradient {
+  background: linear-gradient(135deg, #4FD1C5, #B794F6);
+}
+
+.starfire-gradient-text {
+  background: linear-gradient(135deg, #81E6D9, #B794F6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Player bar animations ─── */
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 10px rgba(79, 209, 197, 0.12); }
+  50% { box-shadow: 0 0 20px rgba(79, 209, 197, 0.28); }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
+
+.animate-spin-slow.paused {
+  animation-play-state: paused;
+}
+
+/* ─── Song list hover effects ─── */
+
+.song-row:hover {
+  background: rgba(79, 209, 197, 0.05);
+}
+
+.song-row.playing {
+  background: rgba(79, 209, 197, 0.08);
+}
+
+/* ─── Carousel ─── */
+
+.carousel-item {
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* ─── Effect particles ─── */
+
+@keyframes fall {
+  0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg); opacity: 0.3; }
+}
+
+@keyframes rise {
+  0% { transform: translateY(110vh) scale(0.5); opacity: 0; }
+  100% { transform: translateY(-10vh) scale(1); opacity: 0.8; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  25% { transform: translateY(-20px) translateX(10px); }
+  50% { transform: translateY(-5px) translateX(-10px); }
+  75% { transform: translateY(-25px) translateX(5px); }
+}
+
+@keyframes meteor-ltr {
+  0% { transform: translate(-100%, -100%) rotate(-45deg); opacity: 0; }
+  10% { opacity: 1; }
+  100% { transform: translate(200%, 200%) rotate(-45deg); opacity: 0; }
+}
+
+@keyframes meteor-rtl {
+  0% { transform: translate(200%, -100%) rotate(45deg); opacity: 0; }
+  10% { opacity: 1; }
+  100% { transform: translate(-200%, 200%) rotate(45deg); opacity: 0; }
+}
+
+@keyframes firefly {
+  0%, 100% { opacity: 0; transform: translate(0, 0); }
+  25% { opacity: 0.8; }
+  50% { opacity: 0.4; transform: translate(30px, -20px); }
+  75% { opacity: 0.9; }
+}
+
+@keyframes butterfly {
+  0% { transform: translate(0, 0) rotateY(0deg); }
+  25% { transform: translate(30px, -40px) rotateY(90deg); }
+  50% { transform: translate(60px, -20px) rotateY(180deg); }
+  75% { transform: translate(30px, -60px) rotateY(270deg); }
+  100% { transform: translate(0, 0) rotateY(360deg); }
+}
+
+.effect-particle {
+  position: absolute;
+  pointer-events: none;
+}
+
+/* ─── Expanded player transition ─── */
+
+.expanded-player-enter {
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+/* ─── Glassmorphism ─── */
+
+.glass {
+  background: rgba(6, 8, 14, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.glass-light {
+  background: rgba(79, 209, 197, 0.02);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* ─── Starlight Micro-interactions ─── */
+
+@keyframes subtle-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.animate-shimmer {
+  background-size: 200% auto;
+  animation: shimmer 3s linear infinite;
+}
+
+/* ─── Starlight twinkle for active indicators ─── */
+
+@keyframes starlight-twinkle {
+  0%, 100% { opacity: 0.6; filter: brightness(1); }
+  50% { opacity: 1; filter: brightness(1.3); }
+}
+
+.animate-starlight-twinkle {
+  animation: starlight-twinkle 2s ease-in-out infinite;
+}
+
+/* ─── Fluorescent pulse for playing indicators ─── */
+
+@keyframes fluorescent-pulse {
+  0%, 100% { box-shadow: 0 0 4px rgba(79, 209, 197, 0.3); }
+  50% { box-shadow: 0 0 12px rgba(79, 209, 197, 0.6); }
+}

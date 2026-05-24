@@ -1,0 +1,108 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Song {
+  id          String   @id @default(cuid())
+  title       String
+  artist      String   @default("未知歌手")
+  album       String   @default("未知专辑")
+  duration    Int      @default(0)
+  filePath    String
+  fileSize    Int      @default(0)
+  coverPath   String?
+  playCount   Int      @default(0)
+  isLocal     Boolean  @default(true)
+  isDownloaded Boolean @default(false)
+  addedAt     DateTime @default(now())
+  lastPlayedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  collections  Collection[]
+  playlistSongs PlaylistSong[]
+  playHistory   PlayHistory[]
+}
+
+model Playlist {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  coverPath   String?
+  songCount   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  songs PlaylistSong[]
+}
+
+model PlaylistSong {
+  id         String   @id @default(cuid())
+  playlistId String
+  songId     String
+  position   Int      @default(0)
+  addedAt    DateTime @default(now())
+
+  playlist Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+  song     Song     @relation(fields: [songId], references: [id], onDelete: Cascade)
+
+  @@unique([playlistId, songId])
+}
+
+model Collection {
+  id       String   @id @default(cuid())
+  songId   String
+  type     String   @default("single")
+  createdAt DateTime @default(now())
+
+  song Song @relation(fields: [songId], references: [id], onDelete: Cascade)
+
+  @@unique([songId, type])
+}
+
+model SkinSetting {
+  id              String   @id @default(cuid())
+  backgroundType  String   @default("none")
+  backgroundPath  String?
+  effectsEnabled  Boolean  @default(false)
+  effectType      String   @default("none")
+  effectDirection String   @default("left-to-right")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model EqualizerPreset {
+  id          String   @id @default(cuid())
+  name        String
+  frequencies String   @default("60,170,310,600,1k,3k,6k,12k,14k,16k")
+  gains       String   @default("0,0,0,0,0,0,0,0,0,0")
+  isBuiltin   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model PlayHistory {
+  id        String   @id @default(cuid())
+  songId    String
+  playedAt  DateTime @default(now())
+
+  song Song @relation(fields: [songId], references: [id], onDelete: Cascade)
+}
+
+model UserSetting {
+  id            String   @id @default(cuid())
+  isLoggedIn    Boolean  @default(false)
+  userName      String   @default("未登录")
+  avatarPath    String?
+  musicFolders  String   @default("[]")
+  downloadPath  String?
+  playMode      String   @default("sequence")
+  volume        Int      @default(80)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
